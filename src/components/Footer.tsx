@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Instagram, Twitter, LinkedIn, Facebook } from 'lucide-react';
+import { Instagram, Twitter, Linkedin, Facebook } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -22,7 +21,7 @@ const Footer: React.FC = () => {
                 <Twitter className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent/50 transition-all duration-200">
-                <LinkedIn className="w-4 h-4" />
+                <Linkedin className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent/50 transition-all duration-200">
                 <Facebook className="w-4 h-4" />
