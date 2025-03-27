@@ -16,26 +16,58 @@ class Application extends App implements IBootstrap {
     }
 
     public function register(IRegistrationContext $context): void {
-        // Registrierung von Services, Listenern, etc.
+        // Register services, listeners, etc.
     }
 
     public function boot(IBootContext $context): void {
-        // Registrierung von CSS und JS wenn die App geladen wird
+        // Register CSS and JS when the app is loaded
         Util::addScript(self::APP_ID, 'main');
         Util::addStyle(self::APP_ID, 'style');
         
-        // Optional: Theme für alle Apps erzwingen
+        // Add performance optimization scripts
+        $this->addPerformanceOptimizations();
+        
+        // Force theme for all apps
         $this->forceThemeForAllApps();
+        
+        // Setup dark mode
+        $this->setupDarkMode();
     }
     
     /**
-     * Sorgt dafür, dass unser Theme für alle Apps verwendet wird
+     * Ensures our theme is used for all apps
      */
     private function forceThemeForAllApps() {
-        // Hier können wir zusätzliche JS und CSS für alle Apps erzwingen
-        // Dies wird ausgeführt, wenn eine App geladen wird
-        
+        // This is executed when an app is loaded
         \OCP\Util::addScript(self::APP_ID, 'main', 'core');
         \OCP\Util::addStyle(self::APP_ID, 'style', 'core');
+    }
+    
+    /**
+     * Add performance optimizations
+     */
+    private function addPerformanceOptimizations() {
+        // Add preload for critical assets
+        \OCP\Util::addHeader('
+            <link rel="preload" href="' . \OC::$server->getURLGenerator()->imagePath(self::APP_ID, 'icons/home.svg') . '" as="image">
+            <link rel="preload" href="' . \OC::$server->getURLGenerator()->imagePath(self::APP_ID, 'icons/files.svg') . '" as="image">
+        ');
+        
+        // Add lazy loading script
+        \OCP\Util::addScript(self::APP_ID, 'lazy-loading');
+    }
+    
+    /**
+     * Setup dark mode detection and transitions
+     */
+    private function setupDarkMode() {
+        // Add dark mode script
+        \OCP\Util::addScript(self::APP_ID, 'dark-mode');
+        
+        // Add meta theme-color for mobile browsers
+        \OCP\Util::addHeader('
+            <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+            <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+        ');
     }
 }

@@ -1,31 +1,50 @@
 
 {
   "name": "theme-modern",
-  "version": "0.1.0",
-  "description": "A modern, minimalist theme for Nextcloud",
+  "version": "1.0.0",
+  "description": "A modern, Apple-inspired theme for Nextcloud",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress",
-    "dev": "webpack --progress --watch",
+    "build": "webpack --mode production --progress",
+    "dev": "webpack --mode development --progress --watch",
+    "analyze": "webpack --mode production --analyze",
+    "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Apple-Design Theme Developer",
   "license": "AGPL-3.0",
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
+    "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "compression-webpack-plugin": "^10.0.0",
     "css-loader": "^6.8.1",
+    "cssnano": "^6.0.1",
+    "eslint": "^8.43.0",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "postcss": "^8.4.24",
+    "postcss-loader": "^7.3.3",
     "sass": "^1.63.4",
     "sass-loader": "^13.3.2",
+    "terser-webpack-plugin": "^5.3.9",
     "vue-loader": "^15.10.1",
     "vue-template-compiler": "^2.7.14",
     "webpack": "^5.87.0",
+    "webpack-bundle-analyzer": "^4.9.0",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "intersection-observer": "^0.12.2",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.7.14"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 11",
+    "not dead"
+  ]
 }

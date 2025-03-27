@@ -13,6 +13,8 @@
         - Automatic dark mode that respects system preferences
         - Soft shadows and rounded corners
         - Enhanced typography and improved spacing
+        - Mobile-optimized responsive design
+        - Performance improvements with lazy loading
         
         The theme preserves all Nextcloud functionality while providing a modern, elegant look and feel.
     </description>
@@ -25,6 +27,6 @@
     <bugs>https://your-repository.com/issues</bugs>
     <repository type="git">https://your-repository.com</repository>
     <dependencies>
-        <nextcloud min-version="25" max-version="28"/>
+        <nextcloud min-version="26" max-version="30"/>
     </dependencies>
 </info>

@@ -7,3 +7,7 @@
 .DS_Store
 /.idea/
 /.vscode/
+/dist/
+/.eslintcache
+/npm-debug.log
+/yarn-error.log

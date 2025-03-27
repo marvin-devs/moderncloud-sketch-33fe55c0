@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Anwendung des Dark Mode
   applyDarkModeDetection();
+  
+  // Mobile-Optimierungen initialisieren
+  initMobileOptimizations();
+  
+  // Performance-Optimierungen anwenden
+  applyPerformanceOptimizations();
 });
 
 /**
@@ -49,7 +55,7 @@ function applyComponentOverrides() {
     const navItems = Array.from(originalNavigationMenu.querySelectorAll('.app-navigation-entry')).map(item => {
       return {
         id: item.getAttribute('data-id') || Math.random().toString(36),
-        label: item.querySelector('.app-navigation-entry-link').textContent.trim(),
+        label: item.querySelector('.app-navigation-entry-link')?.textContent.trim() || 'Unknown',
         icon: item.querySelector('img, svg') ? item.querySelector('img, svg').outerHTML : null,
         active: item.classList.contains('active'),
         href: item.querySelector('a') ? item.querySelector('a').getAttribute('href') : '#'
@@ -143,6 +149,23 @@ function initCustomBehaviors() {
     const loginForm = document.querySelector('form');
     if (loginForm) {
       loginForm.parentElement.classList.add('login-container');
+      
+      // Login Form verbessern
+      const inputs = loginForm.querySelectorAll('input[type="text"], input[type="password"], input[type="email"], input[type="submit"]');
+      inputs.forEach(input => {
+        input.classList.add('animate-transition');
+        
+        if (input.type === 'submit') {
+          input.classList.add('login-submit');
+        }
+      });
+      
+      // Animation-Verzögerung für sequentielles Erscheinen
+      const formElements = loginForm.querySelectorAll('p, input, label, button');
+      formElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 50 + 100}ms`;
+        el.classList.add('animate-fade');
+      });
     }
     
     // Hintergrund-Animation
@@ -165,6 +188,11 @@ function initCustomBehaviors() {
             // Auch bei neu hinzugefügten Elementen Stile anwenden
             node.querySelectorAll && node.querySelectorAll('button, .button').forEach(button => {
               button.classList.add('animate-transition');
+            });
+            
+            // Auch bei neu hinzugefügten Elementen Animationen hinzufügen
+            node.querySelectorAll && node.querySelectorAll('.notification, .toastify').forEach(notification => {
+              notification.classList.add('animate-notification');
             });
           }
         });
@@ -201,10 +229,28 @@ function applyCurrentColorScheme() {
   if (userPreference === 'dark' || (userPreference !== 'light' && isDarkMode)) {
     document.documentElement.classList.add('dark');
     document.documentElement.classList.remove('light');
+    
+    // Meta theme-color für Browser anpassen
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', '#1c1c1e');
+    }
   } else {
     document.documentElement.classList.add('light');
     document.documentElement.classList.remove('dark');
+    
+    // Meta theme-color für Browser anpassen
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', '#ffffff');
+    }
   }
+  
+  // Animiere den Übergang
+  document.body.classList.add('color-scheme-transition');
+  setTimeout(() => {
+    document.body.classList.remove('color-scheme-transition');
+  }, 500);
 }
 
 /**
@@ -213,12 +259,24 @@ function applyCurrentColorScheme() {
 function addDarkModeToggle() {
   const settingsMenu = document.querySelector('#settings');
   if (settingsMenu) {
+    // Prüfen, ob der Toggle bereits existiert
+    if (document.getElementById('dark-mode-toggle')) {
+      return;
+    }
+    
     const darkModeToggle = document.createElement('div');
     darkModeToggle.id = 'dark-mode-toggle';
     darkModeToggle.className = 'settings-item';
+    
+    // Moderneren Switch für den Dark Mode erstellen
     darkModeToggle.innerHTML = `
-      <input type="checkbox" id="dark-mode-checkbox" class="checkbox" ${document.documentElement.classList.contains('dark') ? 'checked' : ''}>
-      <label for="dark-mode-checkbox">Dark Mode</label>
+      <div class="apple-toggle-wrapper">
+        <span>Dark Mode</span>
+        <div class="switch">
+          <input type="checkbox" id="dark-mode-checkbox" ${document.documentElement.classList.contains('dark') ? 'checked' : ''}>
+          <span class="slider"></span>
+        </div>
+      </div>
     `;
     
     // Nach den persönlichen Einstellungen einfügen
@@ -240,6 +298,104 @@ function addDarkModeToggle() {
         document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
       }
+      
+      // Wende die neue Farbpalette an (einschließlich Meta-Tag updates)
+      applyCurrentColorScheme();
     });
   }
+}
+
+/**
+ * Mobile-Optimierungen anwenden
+ */
+function initMobileOptimizations() {
+  // Responsive Meta-Tag hinzufügen wenn nicht vorhanden
+  if (!document.querySelector('meta[name="viewport"]')) {
+    const meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    document.head.appendChild(meta);
+  }
+  
+  // Mobile Klasse zum Body hinzufügen
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    document.body.classList.add('is-mobile');
+  }
+  
+  // Event Listener für Resize-Events
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+      document.body.classList.add('is-mobile');
+    } else {
+      document.body.classList.remove('is-mobile');
+    }
+  });
+  
+  // Touchfreundliche UI-Anpassungen für mobile Geräte
+  if (isMobile) {
+    // Größere Touch-Targets für mobile Geräte
+    document.querySelectorAll('button, .button, a.action, .action-item').forEach(element => {
+      element.classList.add('touch-target');
+    });
+    
+    // Bottom Navigation für Mobile
+    const appNav = document.querySelector('.app-navigation');
+    if (appNav) {
+      appNav.classList.add('mobile-navigation');
+    }
+    
+    // Content-Padding anpassen
+    const appContent = document.querySelector('.app-content');
+    if (appContent) {
+      appContent.classList.add('mobile-content');
+    }
+  }
+}
+
+/**
+ * Performance-Optimierungen anwenden
+ */
+function applyPerformanceOptimizations() {
+  // Lazy Loading für Bilder
+  document.querySelectorAll('img').forEach(img => {
+    // Nur anwenden, wenn das Bild noch nicht lazy loading hat
+    if (!img.hasAttribute('loading') && !img.classList.contains('lazy')) {
+      img.setAttribute('loading', 'lazy');
+      img.classList.add('optimize-performance');
+    }
+  });
+  
+  // Debounce für häufige Events
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+  
+  // Scroll-Events optimieren
+  const scrollEvents = document.querySelectorAll('.scroll-container');
+  scrollEvents.forEach(container => {
+    container.addEventListener('scroll', debounce(() => {
+      // Scroll-Handler mit Debounce
+    }, 100));
+  });
+  
+  // Hardware-Acceleration für Animationen
+  document.querySelectorAll('.animate-transition, .animate-notification, .animate-fade, .animate-scale').forEach(element => {
+    element.classList.add('optimize-performance');
+  });
+  
+  // Aktive Animationen reduzieren, wenn die Seite nicht sichtbar ist
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.body.classList.add('reduce-animations');
+    } else {
+      document.body.classList.remove('reduce-animations');
+    }
+  });
 }
