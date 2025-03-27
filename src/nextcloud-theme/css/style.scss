@@ -1,0 +1,191 @@
+
+/**
+ * Modern Theme SCSS
+ * Structured styling for Nextcloud
+ */
+
+// Variables
+$font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, 
+             Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-size-base: 14px;
+
+$animation-quick: 100ms;
+$animation-normal: 200ms;
+$animation-slow: 300ms;
+
+$border-radius-sm: 4px;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$border-radius-pill: 9999px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($property: all, $duration: $animation-normal) {
+  transition: $property $duration ease;
+}
+
+@mixin hover-effect {
+  &:hover {
+    background-color: var(--color-background-hover);
+  }
+}
+
+// Base styles
+body {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: var(--color-main-text);
+  background-color: var(--color-main-background);
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+// Buttons
+.button,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  @include flex-center;
+  @include transition;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-primary-element);
+  color: var(--color-primary-element-text);
+  
+  &:hover {
+    opacity: 0.9;
+  }
+  
+  &:focus {
+    outline: 2px solid var(--color-primary-element);
+    outline-offset: 2px;
+  }
+  
+  &.primary {
+    background-color: var(--color-primary-element);
+    color: var(--color-primary-element-text);
+  }
+  
+  &.secondary {
+    background-color: var(--color-background-dark);
+    color: var(--color-main-text);
+    border: 1px solid var(--color-border);
+  }
+}
+
+// Form inputs
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+textarea {
+  @include transition(border-color);
+  background-color: var(--color-main-background);
+  color: var(--color-main-text);
+  border: 1px solid var(--color-border);
+  border-radius: $border-radius;
+  padding: 0.5rem;
+  width: 100%;
+  
+  &:focus {
+    border-color: var(--color-primary-element);
+    outline: none;
+  }
+}
+
+// Cards
+.card,
+.app-content-list-item {
+  @include transition;
+  background-color: var(--color-background-dark);
+  border-radius: $border-radius;
+  border: 1px solid var(--color-border);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  
+  @include hover-effect;
+}
+
+// App navigation
+.app-navigation {
+  background-color: var(--color-background-dark);
+  
+  .app-navigation-entry {
+    @include transition;
+    border-radius: $border-radius;
+    margin: 0.25rem 0.5rem;
+    
+    @include hover-effect;
+    
+    &.active {
+      background-color: var(--color-primary-element);
+      color: var(--color-primary-element-text);
+    }
+  }
+}
+
+// Header
+#header {
+  background-color: var(--color-header);
+  border-bottom: 1px solid var(--color-border);
+  
+  .header-right > div > .header-menu {
+    border-radius: $border-radius;
+  }
+}
+
+// Animations
+.animate-transition {
+  @include transition;
+}
+
+.animate-notification {
+  animation: slideIn $animation-normal ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Modern scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-maxcontrast);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--color-primary-element);
+  }
+}

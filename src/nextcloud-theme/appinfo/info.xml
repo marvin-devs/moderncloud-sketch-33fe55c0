@@ -1,0 +1,21 @@
+
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespace="true">
+    <id>theme-modern</id>
+    <name>Modern Theme</name>
+    <summary>A modern, minimalist theme for Nextcloud</summary>
+    <description>
+        This theme modernizes the Nextcloud interface with a cleaner, more minimalist design while maintaining all functionality.
+    </description>
+    <version>0.1.0</version>
+    <licence>agpl</licence>
+    <author>Your Name</author>
+    <namespace>ThemeModern</namespace>
+    <category>customization</category>
+    <website>https://your-website.com</website>
+    <bugs>https://your-repository.com/issues</bugs>
+    <repository type="git">https://your-repository.com</repository>
+    <dependencies>
+        <nextcloud min-version="25" max-version="28"/>
+    </dependencies>
+</info>

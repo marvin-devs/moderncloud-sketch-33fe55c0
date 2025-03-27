@@ -1,0 +1,31 @@
+
+{
+  "name": "theme-modern",
+  "version": "0.1.0",
+  "description": "A modern, minimalist theme for Nextcloud",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --progress",
+    "dev": "webpack --progress --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.8.1",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "sass": "^1.63.4",
+    "sass-loader": "^13.3.2",
+    "vue-loader": "^15.10.1",
+    "vue-template-compiler": "^2.7.14",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "vue": "^2.7.14"
+  }
+}
