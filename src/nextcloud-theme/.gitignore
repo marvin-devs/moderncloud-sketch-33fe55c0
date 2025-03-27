@@ -5,3 +5,5 @@
 /css/*.css
 /css/*.css.map
 .DS_Store
+/.idea/
+/.vscode/

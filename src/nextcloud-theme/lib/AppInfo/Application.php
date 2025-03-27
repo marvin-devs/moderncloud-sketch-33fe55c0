@@ -6,6 +6,7 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\Util;
 
 class Application extends App implements IBootstrap {
     public const APP_ID = 'theme-modern';
@@ -15,12 +16,26 @@ class Application extends App implements IBootstrap {
     }
 
     public function register(IRegistrationContext $context): void {
-        // Register services, listeners, etc.
+        // Registrierung von Services, Listenern, etc.
     }
 
     public function boot(IBootContext $context): void {
-        // Register CSS and JS when the app is loaded
-        \OCP\Util::addScript(self::APP_ID, 'script');
-        \OCP\Util::addStyle(self::APP_ID, 'style');
+        // Registrierung von CSS und JS wenn die App geladen wird
+        Util::addScript(self::APP_ID, 'main');
+        Util::addStyle(self::APP_ID, 'style');
+        
+        // Optional: Theme für alle Apps erzwingen
+        $this->forceThemeForAllApps();
+    }
+    
+    /**
+     * Sorgt dafür, dass unser Theme für alle Apps verwendet wird
+     */
+    private function forceThemeForAllApps() {
+        // Hier können wir zusätzliche JS und CSS für alle Apps erzwingen
+        // Dies wird ausgeführt, wenn eine App geladen wird
+        
+        \OCP\Util::addScript(self::APP_ID, 'main', 'core');
+        \OCP\Util::addStyle(self::APP_ID, 'style', 'core');
     }
 }

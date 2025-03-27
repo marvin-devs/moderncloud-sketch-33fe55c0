@@ -2,14 +2,23 @@
 <?xml version="1.0"?>
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespace="true">
     <id>theme-modern</id>
-    <name>Modern Theme</name>
-    <summary>A modern, minimalist theme for Nextcloud</summary>
+    <name>Apple-Design Theme</name>
+    <summary>A modern, Apple-inspired theme for Nextcloud</summary>
     <description>
-        This theme modernizes the Nextcloud interface with a cleaner, more minimalist design while maintaining all functionality.
+        This theme modernizes the Nextcloud interface with an elegant, Apple-inspired design featuring:
+        - Minimalist UI with clean structure and whitespace
+        - Glass morphism and subtle transparency effects
+        - Smooth animations and transitions
+        - macOS/iOS style buttons, cards, and UI elements
+        - Automatic dark mode that respects system preferences
+        - Soft shadows and rounded corners
+        - Enhanced typography and improved spacing
+        
+        The theme preserves all Nextcloud functionality while providing a modern, elegant look and feel.
     </description>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <licence>agpl</licence>
-    <author>Your Name</author>
+    <author>Apple-Design Theme Developer</author>
     <namespace>ThemeModern</namespace>
     <category>customization</category>
     <website>https://your-website.com</website>
